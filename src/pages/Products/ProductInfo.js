@@ -25,6 +25,7 @@ const ProductInfo = () => {
 			return { ...pre, comment: e.target.value };
 		});
 	};
+	const [refresh, setRefresh] = useState()
 	const handleRating = async () => {
 		if (ratingData.star <= 0 || ratingData.comment === '') alert('Xin vui lòng đánh giá sao và comment!');
 		else {
@@ -40,6 +41,7 @@ const ProductInfo = () => {
 				setRatingData((pre) => {
 					return { ...pre, comment: '' };
 				});
+				setRefresh(Math.random())
 			}
 		}
 	};
@@ -132,7 +134,7 @@ const ProductInfo = () => {
 				</button>
 				<div>
 					{' '}
-					<Comments productID={product.productID} />{' '}
+					<Comments refresh = {refresh}  productID={product.productID} />{' '}
 				</div>
 			</div>
 		</div>

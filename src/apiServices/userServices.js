@@ -9,3 +9,12 @@ export const searchAllUsers = async () => {
 	}
 };
 
+export const deleleUserCart = async ({userID, productID}) => {
+	try {
+		const res = await request.get(`delete-product-from-cart/${userID}/${productID}`);
+		return res.data
+	} catch (error) {
+		return error.response
+		console.log(error);
+	}
+};
