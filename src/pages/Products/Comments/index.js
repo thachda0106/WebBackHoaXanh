@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { searchCommentsByProductsID } from '../../../apiServices/commentServices';
 import { Functions } from '../../../utils/Function';
 import Context from '../../../constants/Context';
-const Comments = ({ productID }) => {
+const Comments = ({ refresh , productID }) => {
 	const [ state, dispatch ] = useContext(Context);
 	const [ comments, setComments ] = useState();
 	const handleGetComments = async (productID) => {
@@ -14,7 +14,7 @@ const Comments = ({ productID }) => {
 	};
 	useEffect(() => {
 		handleGetComments(productID);
-	}, []);
+	}, [refresh]);
 	return (
 		<>
 			{!comments ? (

@@ -15,4 +15,9 @@ export const post = async (path, options = {}) => {
 	return response;
 }
 
+export const del = async (path, options = {}) => {
+	const response = await request.delete(path, options);
+	return response;
+}
+
 export default request;

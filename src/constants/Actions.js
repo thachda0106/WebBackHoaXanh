@@ -11,7 +11,14 @@ export const Actions = {
             type: 'SET_INITSTATE',
             data
         }
-   } 
+   } ,
+   //======================== changed initState
+   deleteUserCart(productID){
+       return {
+           type: 'DELETE_USERCART',
+           productID
+       }
+   }
    
 
 }
