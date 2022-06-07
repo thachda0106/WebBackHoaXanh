@@ -13,9 +13,10 @@ import NotFound from './components/NotFound';
 import Header from './components/Home/Header';
 import Footer from './components/Home/Footer';
 import ProductInfo from './pages/Products/ProductInfo';
+import VoucherList from './pages/Cart/VoucherList'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-	<React.StrictMode>
+	// <React.StrictMode>
 		<Provider>
 			<BrowserRouter>
 				<Header />
@@ -24,6 +25,8 @@ root.render(
 						<Route path="" element={<Home />} />
 						<Route path="cart" element={<Cart />} />
 						<Route path="products/:id" element={<ProductInfo />} />
+						<Route path="my_voucher" element={<VoucherList />} />
+
 						{/* NotFound */}
 						<Route path="*" element={<NotFound />} />
 					</Route>
@@ -31,7 +34,7 @@ root.render(
 				<Footer/>
 			</BrowserRouter>
 		</Provider>
-	</React.StrictMode>
+	/* </React.StrictMode> */
 );
 
 // If you want to start measuring performance in your app, pass a function

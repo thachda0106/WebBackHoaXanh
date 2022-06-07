@@ -18,6 +18,13 @@ export const Actions = {
            type: 'DELETE_USERCART',
            productID
        }
+   },
+
+   addToCart(cartInfo){
+       return {
+           type: 'ADD_TO_CART',
+           cartInfo
+       }
    }
    
 

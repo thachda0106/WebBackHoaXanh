@@ -1,11 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import ReactStars from 'react-rating-stars-component';
 import { useParams } from 'react-router-dom';
 import Context from '../../constants/Context';
 import { Functions } from '../../utils/Function';
+import { Actions } from '../../constants/Actions';
+import { addToCart } from '../../apiServices/productServices';
 import Comments from './Comments';
 import { addComment } from '../../apiServices/commentServices';
-import axios from 'axios';
+import LoadingAwait from '../../components/Loading/LoadingAwait'
 const ProductInfo = () => {
 	const params = useParams();
 	const [ state, dispatch ] = useContext(Context);
@@ -25,7 +27,8 @@ const ProductInfo = () => {
 			return { ...pre, comment: e.target.value };
 		});
 	};
-	const [refresh, setRefresh] = useState()
+	const [isLoading,setLoading] = useState(false) 
+	const [ refresh, setRefresh ] = useState();
 	const handleRating = async () => {
 		if (ratingData.star <= 0 || ratingData.comment === '') alert('Xin vui lòng đánh giá sao và comment!');
 		else {
@@ -41,13 +44,32 @@ const ProductInfo = () => {
 				setRatingData((pre) => {
 					return { ...pre, comment: '' };
 				});
-				setRefresh(Math.random())
+				setRefresh(Math.random());
 			}
 		}
 	};
+	const handelAddCart = async()=>{
+		let cartInfo = {
+			productID: product.productID,
+			picture: product.productImage,
+			productName: product.name,
+			price: product.price,
+			priceDiscount: product.price * product.discountPercent,
+			discountPercent: product.discountPercent,
+			quantity: 1
+		};
+		setLoading(true);
+		let res = await addToCart(cartInfo, state.userLogin.info.userID);
+			if (res.status >= 200 && res.status < 300) {
+			dispatch(Actions.addToCart(cartInfo));
+			setLoading(false)
+			window.alert('Đã thêm sản phẩm vào giỏ hàng!');
+		} else window.alert('Lỗi thêm sản phẩm vào giỏ hàng!');
+	}
 
 	return (
 		<div className="w-full h-auto bg-colorBgGray flex flex-col justify-center items-center ">
+			<LoadingAwait isLoading={isLoading} />
 			<div className="w-5/6 h-auto mt-14">
 				<h2 className="w-5/6 h-auto p-2 flex flex-row">
 					Sản phẩm{' '}
@@ -104,14 +126,20 @@ const ProductInfo = () => {
 								</p>
 							)}
 						</p>
-						<button
-							onClick={() => {
-								console.log('test');
-							}}
-							class="px-4 py-1 text-sm rounded-full border border-purple-200 bg-colorPrimary text-white  hover:bg-purple-400 hover:text-black "
-						>
-							Thêm vào giỏ hàng
-						</button>
+						{!Functions.checkProductCart(state.userLogin.info.userListCart, product.productID) ? (
+							<button
+								onClick ={handelAddCart}
+								class="px-4 py-1 text-sm rounded-full border border-purple-200 bg-colorPrimary text-white  hover:bg-purple-400 hover:text-black "
+							>
+								Thêm vào giỏ hàng
+							</button>
+						) : (
+							<div
+								class="w-52 px-4 py-1 text-sm font-bold rounded-full border border-purple-200 bg-colorGrayText text-colorPrimary"
+							>
+								Đã Thêm vào giỏ hàng
+							</div>
+						)}
 					</div>
 				</div>
 			</div>
@@ -128,13 +156,13 @@ const ProductInfo = () => {
 				<br />
 				<button
 					onClick={handleRating}
-					className="px-4 py-1 text-sm rounded-full border border-purple-500 bg-purple-700 text-white hover:bg-opacity-25  "
+					className=" px-4 py-1 text-sm rounded-full border border-purple-500 bg-purple-700 text-white hover:bg-opacity-25  "
 				>
 					Gửi
 				</button>
 				<div>
 					{' '}
-					<Comments refresh = {refresh}  productID={product.productID} />{' '}
+					<Comments refresh={refresh} productID={product.productID} />{' '}
 				</div>
 			</div>
 		</div>
