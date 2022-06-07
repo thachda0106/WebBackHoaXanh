@@ -1,9 +1,11 @@
-import React, { useContext, useState, useRef } from 'react';
+import React, { useContext, useState, useRef, useEffect } from 'react';
 import { Functions } from '../../../utils/Function';
 import Context from '../../../constants/Context';
-const Items = ({ item, onCheckedItem, handleDeleteItem }) => {
+import { Link } from 'react-router-dom';
+const Items = ({ onOrder, onVoucher, voucher, item, onCheckedItem, handleDeleteItem }) => {
 	const [ state, dispatch ] = useContext(Context);
 	var checkboxRef = useRef();
+
 	const [ product, setProduct ] = useState(() => {
 		return Functions.findProduct(state.data.products, item.productID);
 	});
@@ -24,14 +26,26 @@ const Items = ({ item, onCheckedItem, handleDeleteItem }) => {
 			if (checkboxRef.current.checked) onCheckedItem(-priceTemp);
 			setData({ quantity: data.quantity - 1, price: data.price - priceTemp });
 		} else {
-			let result = window.confirm('Bạn có muốn xóa sản phẩm này ra khỏi giỏ hàng?')
-			if(result) handleDeleteItem(item.productID)
+			let result = window.confirm('Bạn có muốn xóa sản phẩm này ra khỏi giỏ hàng?');
+			if (result) handleDeleteItem(item.productID);
 		}
 	};
 	const handlePlusQuantity = () => {
 		if (checkboxRef.current.checked) onCheckedItem(+priceTemp);
 		setData({ quantity: data.quantity + 1, price: data.price + priceTemp });
 	};
+
+	if (voucher && voucher.productID == item.productID && checkboxRef.current.checked) {
+		let discountTotal = data.price - data.price * data.quantity * voucher.discountValue / 100;
+		discountTotal > voucher.maxDiscountValue
+			? onVoucher(voucher.maxDiscountValue)
+			: onVoucher(voucher.discountTotal);
+	}
+	useEffect(() => {
+		let cartOrder = { checked: checkboxRef.current.checked, productID: item.productID, data };
+		onOrder(cartOrder);
+	});
+
 	return (
 		// container
 		<div className="w-full h-auto p-4 flex flex-row items-center justify-between ">
@@ -47,21 +61,26 @@ const Items = ({ item, onCheckedItem, handleDeleteItem }) => {
 						} else onCheckedItem(-data.price);
 					}}
 				/>
-				<img src={product.productImage} width={70} height={70} />
+				<Link className="hover:opacity-80" to={`/products/${product.productID}`}>
+					<img src={product.productImage} width={70} height={70} />{' '}
+				</Link>
+
 				<div>
-					<h3>{product.name}</h3>
-					<p>
-						{Functions.toVND(product.price - product.discountPercent * product.price / 100)}{' '}
-						{product.discountPercent > 0 &&
-						Functions.checkHot(product) && (
-							<span className="ml-1">
-								<span class="line-through mr-1">{Functions.toVND(product.price)}</span>
-								<span class="text-white bg-red-500 rounded-md w-auto h-auto p-1">
-									-{product.discountPercent}%
+					<Link to={`/products/${product.productID}`} className="hover:opacity-80">
+						<h3>{product.name}</h3>
+						<p>
+							{Functions.toVND(priceTemp)}{' '}
+							{product.discountPercent > 0 &&
+							Functions.checkHot(product) && (
+								<span className="ml-1">
+									<span class="line-through mr-1">{Functions.toVND(product.price)}</span>
+									<span class="text-white bg-red-500 rounded-md w-auto h-auto p-1">
+										-{product.discountPercent}%
+									</span>
 								</span>
-							</span>
-						)}
-					</p>
+							)}
+						</p>
+					</Link>
 				</div>
 			</div>
 			<div class="w-auto h-6 flex flex-row justify-between">
@@ -81,7 +100,6 @@ const Items = ({ item, onCheckedItem, handleDeleteItem }) => {
 					onChange={handleChangedQuantity}
 					value={data.quantity}
 					type="text"
-					autocomplete="off"
 					className="w-8 h-6 text-center border border-colorGrayText"
 				/>
 				<span className="block" onClick={handlePlusQuantity}>
@@ -98,7 +116,7 @@ const Items = ({ item, onCheckedItem, handleDeleteItem }) => {
 				</span>
 			</div>
 			{/* Gia */}
-			<div>
+			<div className="w-12 content-end ">
 				<p>{Functions.toVND(data.price)}</p>
 			</div>
 		</div>

@@ -66,6 +66,9 @@ export const Functions = {
       }
     }
   },
+  checkProductCart(listCart, productID){
+      return listCart.some(cart=> cart.productID == productID)
+  },
   // Convert kiểu date sang timestamp (không có giây)
   dateToTimestamp: (date) => {
     return new Date(

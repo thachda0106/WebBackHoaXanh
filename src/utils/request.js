@@ -20,4 +20,9 @@ export const del = async (path, options = {}) => {
 	return response;
 }
 
+export const put = async (path, options = {}) => {
+	const response = await request.put(path, options);
+	return response;
+}
+
 export default request;
