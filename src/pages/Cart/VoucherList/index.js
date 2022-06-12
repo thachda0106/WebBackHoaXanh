@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 const VoucherList = ({onBackToCart}) => {
 	const [ state, dispatch ] = useContext(Context);
 	const vouchers = state.userLogin.info.userListVoucher;
+
+	if(!vouchers) return <></>
 	return (
 		<div className="w-full h-full mt-14 bg-colorBgGray flex justify-center relative top-0 left-0 right-0 ">
 			<div className="w-3/6 bg-white shadow-sm my-5 px-5 pt-2">
@@ -22,13 +24,13 @@ const VoucherList = ({onBackToCart}) => {
 						>
 							<path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
 						</svg>{' '}
-						Voucher của bạn
+						Voucher của bạn (<Link to="/collect_voucher"><span className="text-colorPrimary">Thu thập mã</span></Link>)
 					</h1>
 				</div>
 				<div>
-					{vouchers.length === 0 ? 'Bạn chưa thu thập voucher!' : ''}
+					{vouchers.every(voucher => voucher.isUse === 'TRUE')? (<div className="mb-9 ">Bạn chưa có voucher nào đi thu thập thôi <Link to="/collect_voucher"><span className="text-colorPrimary">Thu thập</span></Link></div>) : ''}
 					{vouchers.map((voucher) => {
-						if (voucher.isUse === 'true') return <div />;
+						if (voucher.isUse === 'TRUE') return <div />;
 						else
 							return (
 								// voucher container
@@ -50,7 +52,7 @@ const VoucherList = ({onBackToCart}) => {
 										Đến {Functions.timestampToDate(voucher.dateEnd)} <br />
 										<Link to="/cart">
 											<div>
-												<button onClick={()=>{onBackToCart(voucher)}} className="w-auto h-auto px-4 py-1 bg-colorPrimary text-white rounded-full hover:bg-colorPrimaryDark ">
+												<button id={voucher.voucherID} onClick={onBackToCart} className="w-auto h-auto px-4 py-1 bg-colorPrimary text-white rounded-full hover:bg-colorPrimaryDark ">
 													Sử dụng
 												</button>
 

@@ -25,7 +25,28 @@ export const Actions = {
            type: 'ADD_TO_CART',
            cartInfo
        }
-   }
+   },
    
+   updateUserListCart(listCart){
+        return {
+            type: 'UPDATE_USER_LIST_CART',
+            listCart
+        }
+   },
+   updateUserListVoucher(voucherID){
+        return {
+            type: 'UPDATE_USER_LIST_VOUCHER',
+            voucherID
+
+        }
+   },
+   addVoucherToUser(voucher){
+        return {
+            type: 'ADD_VOUCHER_TO_USER',
+            voucher
+        }
+   },
+
+
 
 }

@@ -1,13 +1,67 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Context from '../../../constants/Context';
 import { Functions } from '../../../utils/Function';
+import {addOrder} from '../../../apiServices/orderServices'
+import {updateUser} from '../../../apiServices/userServices'
+import LoadingAwait from '../../../components/Loading/LoadingAwait'
+import {Navigate} from 'react-router-dom'
+import {Actions} from '../../../constants/Actions'
 const Order = ({ orderDetailCart, onBackToCart }) => {
 	const [ state, dispatch ] = useContext(Context);
-	console.log(orderDetailCart);
-	if (!orderDetailCart) return <></>;
+	const [Loading, setLoading] = useState(false)
+	const [isOrder,setIsOrder] = useState(false)
+	if (!orderDetailCart) return <div />;
 	const { listCartOrder, totalPrice, discountValue, voucher } = orderDetailCart;
+	var listProductCart = listCartOrder.reduce((list, cart) => {
+		if (!cart.checked) return list;
+		let product = Functions.findProduct(state.data.products, cart.productID);
+		return ([
+			...list,
+			{
+				productID: product.productID,
+				picture: product.productImage,
+				productName: product.name,
+				price: product.price,
+				discountPercent: product.discountPercent,
+				quantity: cart.data.quantity
+			}
+		]);
+	},[]);
+
+	var orderDetail = {
+		userID: '1',
+		orderStatus: 'PENDING',
+		dateCreate: Math.floor(Date.now() / 1000),
+		dateDelivery: 0,
+		shippingAddress: state.userLogin.info.address,
+		listProductCart,
+		voucherDiscount: discountValue,
+		voucherID: voucher?.voucherID,
+	};
+
+	const handleOrder= async ()=>{
+		setLoading(true);
+		let res = await addOrder(orderDetail)
+		if(res.status >= 200 && res.status < 300 ){
+		
+			// update init state
+			dispatch(Actions.updateUserListCart(listProductCart))
+			if(voucher){
+				dispatch(Actions.updateUserListVoucher(voucher.voucherID))
+			} 
+			let res  = await updateUser(state.userLogin.info)
+			setLoading(false);
+			console.log(res)
+			alert("Đặt hàng thành công!")
+			//
+			setIsOrder(true)
+		}else alert("Lỗi đặt hàng! Kiểm tra đường truyền mạng của bạn!")
+	}
 	return (
+
 		<div className="w-full h-full mt-14 bg-colorBgGray flex justify-center relative top-0 left-0 right-0 ">
+			{isOrder && <Navigate to="/" replace={true} />}
+			<LoadingAwait isLoading = {Loading} />
 			<div className="w-3/6 bg-white shadow-sm my-5 px-5 pt-2">
 				{/* Page Title */}
 				<div className="w-full h-auto my-2 hover:cursor-pointer">
@@ -106,7 +160,9 @@ const Order = ({ orderDetailCart, onBackToCart }) => {
 												<span> {product.name} </span>
 												<span>số lượng: {cart.data.quantity}</span>
 												<span>Giá: {Functions.toVND(product.price)}</span>
-												<span>Tạm tính: {Functions.toVND(product.price * cart.data.quantity)}</span>
+												<span>
+													Tạm tính: {Functions.toVND((cart.data.price)* cart.data.quantity )}
+												</span>
 											</p>
 										</div>
 									);
@@ -124,9 +180,9 @@ const Order = ({ orderDetailCart, onBackToCart }) => {
 						</div>
 						<div className="flex flex-row justify-start w-full px-4 gap-4">
 							<p>Tổng tiền:</p>
-							<span>{Functions.toVND(totalPrice)}</span>
+							<span>{Functions.toVND(totalPrice - discountValue)}</span>
 						</div>
-						<button className="w-auto h-auto px-4 py-1 bg-colorPrimary text-white rounded-full hover:bg-colorPrimaryDark ">
+						<button onClick={handleOrder} className="w-auto h-auto px-4 py-1 bg-colorPrimary text-white rounded-full hover:bg-colorPrimaryDark ">
 							Đặt hàng
 						</button>
 					</div>

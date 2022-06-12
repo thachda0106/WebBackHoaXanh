@@ -1,5 +1,4 @@
 // import Toast from "react-native-toast-message";
-
 export const Functions = {
   toVND: (price) => {
     let priceStr = price.toString();
@@ -14,6 +13,10 @@ export const Functions = {
       }
     }
     return priceVND + "₫";
+  },
+
+  findVoucherUser(voucherID, voucherList){
+    return voucherList.find(voucher => voucher.voucherID == voucherID)
   },
 
   calculatePrice: (price, sale) => {
@@ -63,6 +66,14 @@ export const Functions = {
     for (let i = 0; i < products.length; i++) {
       if (productID == products[i].productID) {
         return products[i];
+      }
+    }
+  },
+  // Tìm name category theo categoryID
+  findCategory: (categories, categoryID) => {
+    for (let i = 0; i < categories.length; i++) {
+      if (categoryID == categories[i].categoryID) {
+        return categories[i];
       }
     }
   },
@@ -159,6 +170,13 @@ export const Functions = {
     else return newList;
   },
 
+  // chuyen doi sang tieng viet orderStatus
+  covertOrderStatus: (status)=>{
+    if(status === 'ALL') return 'Tất cả'
+    else if(status === 'PENDING') return 'Đang chờ duyệt'
+    else if(status === 'DELIVERING') return 'Đang giao'
+    else return 'Đã nhận'
+  },
   // Lấy tên đơn hàng
   getOrderName: (order) => {
     let res = "";
