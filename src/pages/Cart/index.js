@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useState, useRef } from 'react';
+import React, { useContext, useEffect, useCallback, useState, useRef } from 'react';
 import Context from '../../constants/Context';
 import { Link } from 'react-router-dom';
 import Item from './Item';
@@ -23,11 +23,11 @@ function Cart() {
 	var voucherListRef = useRef();
 	var cartContent = useRef();
 	var orderDetail = useRef();
-	const handleBackToCart = (voucher) => {
+	const handleBackToCart = (e) => {
 		cartContent.current.style.display = 'block';
 		voucherListRef.current.style.display = 'none';
 		orderDetail.current.style.display = 'none';
-		if(voucher)	setVoucher(voucher);
+		setVoucher(Functions.findVoucherUser(e.target.id, state.userLogin.info.userListVoucher));
 	};
 	const handleUseVoucher = () => {
 		voucherListRef.current.style.display = 'block';
@@ -51,21 +51,25 @@ function Cart() {
 
 	const [ orderDetailCart, setOrderDetailCart ] = useState();
 	const handelOrderDetail = () => {
-		setOrderDetailCart({ listCartOrder, totalPrice, discountValue, voucher });
-
-		if(orderDetailCart.listCartOrder.every(cart => !cart.checked )){
-			 window.alert('Xin vui lòng chọn sản phẩm!')
-			 return
-		}
-		orderDetail.current.style.display = 'block';
-		cartContent.current.style.display = 'none';
+		setOrderDetailCart( { listCartOrder, totalPrice, discountValue, voucher });
 	};
+
+	useEffect(()=>{
+		console.log(orderDetailCart)
+		if(!orderDetailCart?.listCartOrder) return 
+		else if( orderDetailCart?.listCartOrder.every(cart => !cart.checked )){
+			 window.alert('Xin vui lòng chọn sản phẩm!')
+		}else{
+			orderDetail.current.style.display = 'block';
+			cartContent.current.style.display = 'none';
+		}
+	}, [orderDetailCart])
 
 	return (
 		// {Container}
 		<div>
 			<div ref={orderDetail} className="hidden ">
-				<Order orderDetailCart={orderDetailCart} onBackToCart = {handleBackToCart} />
+				{ orderDetailCart && <Order orderDetailCart={orderDetailCart} onBackToCart = {handleBackToCart} />}
 			</div>
 			<div ref={voucherListRef} className="hidden ">
 				<VoucherList onBackToCart={handleBackToCart} />

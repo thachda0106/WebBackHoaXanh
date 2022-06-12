@@ -18,3 +18,15 @@ export const deleleUserCart = async ({userID, productID}) => {
 		console.log(error);
 	}
 };
+
+
+export const updateUser = async ({user}) => {
+	try {
+		const res = await request.put(`users/update/${user.userID}`, JSON.stringify(user) );
+		return res
+	} catch (error) {
+		return error.response
+		console.log(error);
+	}
+};
+

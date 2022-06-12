@@ -13,27 +13,34 @@ import NotFound from './components/NotFound';
 import Header from './components/Home/Header';
 import Footer from './components/Home/Footer';
 import ProductInfo from './pages/Products/ProductInfo';
-import VoucherList from './pages/Cart/VoucherList'
+import VoucherList from './pages/Cart/VoucherList';
+import CollectVoucher from './pages/CollectVoucher';
+import MyOrder from './pages/MyOrder';
+import OrderDetail from './pages/MyOrder/OrderDetail';
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
 	// <React.StrictMode>
-		<Provider>
-			<BrowserRouter>
-				<Header />
-				<Routes>
-					<Route path="/" element={<App />}>
-						<Route path="" element={<Home />} />
-						<Route path="cart" element={<Cart />} />
-						<Route path="products/:id" element={<ProductInfo />} />
-						<Route path="my_voucher" element={<VoucherList />} />
-
-						{/* NotFound */}
-						<Route path="*" element={<NotFound />} />
+	<Provider>
+		<BrowserRouter>
+			<Header />
+			<Routes>
+				<Route path="/" element={<App />}>
+					<Route path="" element={<Home />} />
+					<Route path="cart" element={<Cart />} />
+					<Route path="products/:id" element={<ProductInfo />} />
+					<Route path="my_voucher" element={<VoucherList />} />
+					<Route path="collect_voucher" element={<CollectVoucher />} />
+					<Route path="my-order" element={<MyOrder />} >
+						<Route path=":orderID" element={<OrderDetail/>} />
 					</Route>
-				</Routes>
-				<Footer/>
-			</BrowserRouter>
-		</Provider>
+					{/* NotFound */}
+					<Route path="*" element={<NotFound />} />
+				</Route>
+			</Routes>
+			<Footer />
+		</BrowserRouter>
+	</Provider>
 	/* </React.StrictMode> */
 );
 
