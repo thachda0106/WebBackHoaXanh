@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import './style.css';
+<<<<<<< HEAD
 import Context from '../../../constants/Context'
 import { Link } from 'react-router-dom'
 import { Actions } from '../../../constants/Actions';
@@ -13,11 +14,21 @@ function Order() {
 		Functions.showToast('success','Đăng xuất thành công!')
 	}
 
+=======
+import Context from '../../../constants/Context';
+import { Link } from 'react-router-dom';
+
+function Order() {
+	const [ state, dispatch ] = useContext(Context);
+>>>>>>> 132f0d2bf70931d5de0fb5e109fb5580dea5ec7a
 	return (
 		<div className=" w-auto h-full flex flex-row items-center">
 			{/* my order */}
 			<div className=" w-auto h-full pl-2 pr-4 py-2 ">
-				<Link className="block h-full text-white text-sm font-normal text-center flex items-center " to="/my-order">
+				<Link
+					className="block h-full text-white text-sm font-normal text-center flex items-center "
+					to="/my-order"
+				>
 					{' '}
 					<p>
 						Đơn hàng <br /> của bạn
@@ -62,6 +73,7 @@ function Order() {
 					<p className="text-white font-normal">Tài khoản</p>
 				</Link>
 				<div className="dropdown-items hidden bg-colorPrimary absolute top-12 left-0 hover:cursor-pointer p-2 w-40  ">
+<<<<<<< HEAD
 					{state.userLogin.isLogin ? (<ul>
 						<li className="w-auto h-6 text-white hover:bg-colorPrimaryDark block mt-2 ">
 							Thông tin cá nhân
@@ -87,6 +99,29 @@ function Order() {
 
 					</ul>}
 
+=======
+					{state.userLogin.isLogin ? (
+						<ul>
+							<li className="w-auto h-6 text-white hover:bg-colorPrimaryDark block mt-2 ">
+								Thông tin các nhân
+							</li>
+							<Link to="my_voucher">
+								<li className="w-auto h-6 text-white hover:bg-colorPrimaryDark block mt-2 ">
+									Mã khuyến mãi
+								</li>
+							</Link>
+							<li className="w-auto h-6 text-white hover:bg-colorPrimaryDark block mt-2 ">
+								Thay đổi mật khẩu
+							</li>
+							<li className="w-auto h-6 text-white hover:bg-colorPrimaryDark block mt-2 ">Đăng xuất</li>
+						</ul>
+					) : (
+						<ul>
+							<li className="w-auto h-6 text-white hover:bg-colorPrimaryDark block mt-2 ">Đăng nhập</li>
+							<li className="w-auto h-6 text-white hover:bg-colorPrimaryDark block mt-2 ">Đăng ký</li>
+						</ul>
+					)}
+>>>>>>> 132f0d2bf70931d5de0fb5e109fb5580dea5ec7a
 				</div>
 			</div>
 		</div>

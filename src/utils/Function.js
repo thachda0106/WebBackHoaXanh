@@ -1,9 +1,12 @@
 // import Toast from "react-native-toast-message";
+<<<<<<< HEAD
 
 import { type } from "@testing-library/user-event/dist/type";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+=======
+>>>>>>> 132f0d2bf70931d5de0fb5e109fb5580dea5ec7a
 export const Functions = {
   toVND: (price) => {
     let priceStr = price.toString();
@@ -18,6 +21,10 @@ export const Functions = {
       }
     }
     return priceVND + "₫";
+  },
+
+  findVoucherUser(voucherID, voucherList){
+    return voucherList.find(voucher => voucher.voucherID == voucherID)
   },
 
   calculatePrice: (price, sale) => {
@@ -72,6 +79,17 @@ export const Functions = {
         return products[i];
       }
     }
+  },
+  // Tìm name category theo categoryID
+  findCategory: (categories, categoryID) => {
+    for (let i = 0; i < categories.length; i++) {
+      if (categoryID == categories[i].categoryID) {
+        return categories[i];
+      }
+    }
+  },
+  checkProductCart(listCart, productID){
+      return listCart.some(cart=> cart.productID == productID)
   },
   // Convert kiểu date sang timestamp (không có giây)
   dateToTimestamp: (date) => {
@@ -163,6 +181,13 @@ export const Functions = {
     else return newList;
   },
 
+  // chuyen doi sang tieng viet orderStatus
+  covertOrderStatus: (status)=>{
+    if(status === 'ALL') return 'Tất cả'
+    else if(status === 'PENDING') return 'Đang chờ duyệt'
+    else if(status === 'DELIVERING') return 'Đang giao'
+    else return 'Đã nhận'
+  },
   // Lấy tên đơn hàng
   getOrderName: (order) => {
     let res = "";

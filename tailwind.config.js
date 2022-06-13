@@ -1,5 +1,5 @@
 module.exports = {
-	content: ['./pages/**/*.{js,jsx,ts,tsx}', './components/**/*.{js,jsx,ts,tsx}', './src/**/*.{js,jsx,ts,tsx}' ],
+	content: [ './pages/**/*.{js,jsx,ts,tsx}', './components/**/*.{js,jsx,ts,tsx}', './src/**/*.{js,jsx,ts,tsx}' ],
 	theme: {
 		extend: {
 			fontFamily: {
@@ -28,6 +28,10 @@ module.exports = {
 				colorStar: '#F2A221',
 				colorGreen: '#288ad6',
 				colorBgGray: '#e9edf0',
+				colorBgTransparent: '#f0f8ff94'
+			},
+			opacity: {
+				1: '0.005'
 			}
 		}
 	},

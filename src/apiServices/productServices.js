@@ -18,3 +18,15 @@ export const searchProductsByCategory = async (type, categoryID) => {
 		console.log(error);
 	}
 };
+
+
+export const addToCart = async (cartInfo, userID) => {
+	try {
+		const res = await request.put(`products/add-to-cart/${userID}`, JSON.stringify(cartInfo));
+		return res
+	} catch (error) {
+		return error.response
+		console.log(error);
+	}
+};
+
