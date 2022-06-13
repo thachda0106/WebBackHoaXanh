@@ -19,3 +19,13 @@ export const searchAllOrderUser = async (userID) => {
         return error.response
 	}
 };
+
+export const searchOrderById  = async (orderID) => {
+	try {
+		const res = await request.get(`orders/load/${orderID}`);
+		return res
+	} catch (error) {
+        console.log(error.response);
+        return error.response
+	}
+};
