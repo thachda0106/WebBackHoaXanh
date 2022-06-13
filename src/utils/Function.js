@@ -1,12 +1,6 @@
-// import Toast from "react-native-toast-message";
-<<<<<<< HEAD
-
 import { type } from "@testing-library/user-event/dist/type";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-=======
->>>>>>> 132f0d2bf70931d5de0fb5e109fb5580dea5ec7a
 export const Functions = {
   toVND: (price) => {
     let priceStr = price.toString();
