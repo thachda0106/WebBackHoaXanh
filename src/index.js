@@ -25,29 +25,6 @@ import OrderDetail from './pages/MyOrder/OrderDetail';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-<<<<<<< HEAD
-	<React.StrictMode>
-		<Provider>
-			<BrowserRouter>
-			<ToastContainer />
-				<Header />
-				<Routes>
-					<Route path="/" element={<App />}>
-						<Route path="" element={<Home />} />
-						<Route path="cart" element={<Cart />} />
-						<Route path="products/:id" element={<ProductInfo />} />
-						<Route path='login' element={<Login />} />
-						<Route path='signup' element={<Signup />} />
-						<Route path='forgot-password' element={<ForgotPass />} />
-						{/* NotFound */}
-						<Route path="*" element={<NotFound />} />
-					</Route>
-				</Routes>
-				<Footer />
-			</BrowserRouter>
-		</Provider>
-	</React.StrictMode>
-=======
 	// <React.StrictMode>
 	<Provider>
 		<BrowserRouter>
@@ -59,9 +36,12 @@ root.render(
 					<Route path="products/:id" element={<ProductInfo />} />
 					<Route path="my_voucher" element={<VoucherList />} />
 					<Route path="collect_voucher" element={<CollectVoucher />} />
-					<Route path="my-order" element={<MyOrder />} >
-						<Route path=":orderID" element={<OrderDetail/>} />
+					<Route path="my-order" element={<MyOrder />}>
+						<Route path=":orderID" element={<OrderDetail />} />
 					</Route>
+					<Route path="login" element={<Login />} />
+					<Route path="signup" element={<Signup />} />
+					<Route path="forgot-password" element={<ForgotPass />} />
 					{/* NotFound */}
 					<Route path="*" element={<NotFound />} />
 				</Route>
@@ -70,7 +50,6 @@ root.render(
 		</BrowserRouter>
 	</Provider>
 	/* </React.StrictMode> */
->>>>>>> 132f0d2bf70931d5de0fb5e109fb5580dea5ec7a
 );
 
 // If you want to start measuring performance in your app, pass a function

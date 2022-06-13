@@ -13,7 +13,6 @@ export const Actions = {
             type: 'SET_INITSTATE',
             data
         }
-<<<<<<< HEAD
     },
 
     setCurrentUser(user) {
@@ -27,9 +26,7 @@ export const Actions = {
         return {
             type: 'DELETE_CUR_USER',
         }
-    }
-=======
-   } ,
+    },
    //======================== changed initState
    deleteUserCart(productID){
        return {
@@ -64,8 +61,6 @@ export const Actions = {
             voucher
         }
    },
-
->>>>>>> 132f0d2bf70931d5de0fb5e109fb5580dea5ec7a
 
 
 }
