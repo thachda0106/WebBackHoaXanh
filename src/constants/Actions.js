@@ -1,16 +1,34 @@
+import { data } from "autoprefixer"
+
 export const Actions = {
-    Login(user){
+    Login(user) {
         return {
             type: 'LOGIN_USER',
             user
         }
     },
     //===================== API call
-   initStateData(data){
+    initStateData(data) {
         return {
             type: 'SET_INITSTATE',
             data
         }
+<<<<<<< HEAD
+    },
+
+    setCurrentUser(user) {
+        return {
+            type: 'SET_CURRENT_USER',
+            data: user
+        }
+    },
+
+    deleteCurUser() {
+        return {
+            type: 'DELETE_CUR_USER',
+        }
+    }
+=======
    } ,
    //======================== changed initState
    deleteUserCart(productID){
@@ -47,6 +65,7 @@ export const Actions = {
         }
    },
 
+>>>>>>> 132f0d2bf70931d5de0fb5e109fb5580dea5ec7a
 
 
 }

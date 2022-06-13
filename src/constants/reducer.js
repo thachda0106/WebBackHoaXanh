@@ -2,6 +2,10 @@ import { data } from 'autoprefixer';
 
 export const initState = {
 	userLogin: {
+<<<<<<< HEAD
+		isLogin: false,
+		info :{
+=======
 		isLogin: true,
 		info: {
 			userID: '1',
@@ -67,6 +71,7 @@ export const initState = {
 					status: 'ENABLE'
 				}
 			]
+>>>>>>> 132f0d2bf70931d5de0fb5e109fb5580dea5ec7a
 		}
 	},
 	data: {
@@ -76,6 +81,33 @@ export const initState = {
 const reducer = (state, action) => {
 	switch (action.type) {
 		case 'SET_INITSTATE':
+<<<<<<< HEAD
+			// console.log({...state, data:action.data})
+			return {...state, data:action.data}
+		case 'SET_CURRENT_USER':
+			return {
+				...state,
+				userLogin: {
+					...state.userLogin,
+					isLogin: true,
+					info: {
+						...action.data
+					}
+				}
+			}
+		
+		case 'DELETE_CUR_USER':
+			return {
+				...state,
+				userLogin: {
+					...state.userLogin,
+					isLogin: false,
+					info: {}
+				}
+			}
+		default:
+			return state
+=======
 			return { ...state, data: action.data };
 		case 'DELETE_USERCART':
 			state.userLogin.info.userListCart = state.userLogin.info.userListCart.filter(
@@ -108,6 +140,7 @@ const reducer = (state, action) => {
 		}
 		default:
 			return state;
+>>>>>>> 132f0d2bf70931d5de0fb5e109fb5580dea5ec7a
 	}
 };
 

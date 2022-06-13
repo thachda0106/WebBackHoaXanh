@@ -1,4 +1,12 @@
 // import Toast from "react-native-toast-message";
+<<<<<<< HEAD
+
+import { type } from "@testing-library/user-event/dist/type";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+=======
+>>>>>>> 132f0d2bf70931d5de0fb5e109fb5580dea5ec7a
 export const Functions = {
   toVND: (price) => {
     let priceStr = price.toString();
@@ -31,6 +39,9 @@ export const Functions = {
     return max;
   },
 
+  showToast: (type, text) =>{
+    toast[type](text, {position: toast.POSITION.TOP_CENTER,autoClose: 2000});
+  },
   // toastNeedLogin: () => {
   //   Toast.show({
   //     type: "info",
