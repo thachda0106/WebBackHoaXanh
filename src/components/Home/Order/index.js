@@ -18,7 +18,7 @@ function Order() {
 			<div className=" w-auto h-full pl-2 pr-4 py-2 ">
 				<Link
 					className="block h-full text-white text-sm font-normal text-center flex items-center "
-					to="/my-order"
+					to= {state.userLogin.isLogin? "/my-order": '/login'}
 				>
 					{' '}
 					<p>
@@ -28,7 +28,7 @@ function Order() {
 			</div>
 			{/* cart */}
 			<div className="h-full">
-				<Link className=" block h-full flex flex-row bg-colorPrimaryDark items-center px-6" to="/cart">
+				<Link className=" block h-full flex flex-row bg-colorPrimaryDark items-center px-6" to= {state.userLogin.isLogin? "/cart": '/login'}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						class="h-6 w-6 text-white mr-1"
@@ -67,7 +67,7 @@ function Order() {
 					{state.userLogin.isLogin ? (
 						<ul>
 							<li className="w-auto h-6 text-white hover:bg-colorPrimaryDark block mt-2 ">
-								Thông tin các nhân
+								Thông tin cá nhân
 							</li>
 							<Link to="my_voucher">
 								<li className="w-auto h-6 text-white hover:bg-colorPrimaryDark block mt-2 ">
@@ -77,7 +77,9 @@ function Order() {
 							<li className="w-auto h-6 text-white hover:bg-colorPrimaryDark block mt-2 ">
 								Thay đổi mật khẩu
 							</li>
+							<Link to='/login'>
 							<li className="w-auto h-6 text-white hover:bg-colorPrimaryDark block mt-2 " onClick={() => { logout() }}>Đăng xuất</li>
+							</Link>
 						</ul>
 					) : (
 						<ul>

@@ -126,7 +126,7 @@ const ProductInfo = () => {
 								</p>
 							)}
 						</p>
-						{!Functions.checkProductCart(state.userLogin.info.userListCart, product.productID) ? (
+						{!Functions.checkProductCart(state.userLogin.info.userListCart, product.productID) && state.userLogin.isLogin? (
 							<button
 								onClick ={handelAddCart}
 								class="px-4 py-1 text-sm rounded-full border border-purple-200 bg-colorPrimary text-white  hover:bg-purple-400 hover:text-black "
@@ -137,7 +137,7 @@ const ProductInfo = () => {
 							<div
 								class="w-52 px-4 py-1 text-sm font-bold rounded-full border border-purple-200 bg-colorGrayText text-colorPrimary"
 							>
-								Đã Thêm vào giỏ hàng
+								{!state.userLogin.isLogin? 'Thêm vào giỏ hàng': 'Đã thêm vào giỏ hàng'}
 							</div>
 						)}
 					</div>
