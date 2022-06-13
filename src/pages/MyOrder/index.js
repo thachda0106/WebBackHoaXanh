@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { searchAllOrderUser } from '../../apiServices/orderServices';
 import LoadingAwait from '../../components/Loading/LoadingAwait';
 import { Link, Outlet } from 'react-router-dom';
@@ -9,6 +9,7 @@ const MyOrder = () => {
 	const [ state, dispatch ] = useContext(Context);
 	const [ data, setData ] = useState({ type: 'ALL' });
 	const [ isLoading, setIsLoading ] = useState(false);
+	const listOrdersElement = useRef()
 	useEffect(() => {
 		handleGetUserOrders();
 	}, []);
@@ -26,12 +27,14 @@ const MyOrder = () => {
 		// let ordersOfType = data.orders.filter(order => order.)
 		setData({ ...data, type, ordersOfType: data.orders.filter((order) => order.orderStatus === type) });
 	};
-	console.log(data);
+	const handleShowOrderDetail = () =>{
+		// listOrdersElement.current.style.display = 'none';
+	}
 	if (!isLoading) return <LoadingAwait isLoading={!isLoading} />;
 	return (
 		<div className="w-full h-auto mt-14  bg-colorBgGray flex justify-center">
 			{/* Wrapper item */}
-			<div className="w-3/6 h-auto bg-white shadow-sm my-5 px-5 pt-2">
+			<div ref = {listOrdersElement} className="w-3/6 h-auto bg-white shadow-sm my-5 px-5 pt-2">
 				{/* Page Title */}
 				<div className="w-full h-auto my-2 hover:cursor-pointer">
 					<h1 className="flex flex-row items-center gap-1">
@@ -71,14 +74,14 @@ const MyOrder = () => {
 				{/* List orders Of type */}
 				{data.ordersOfType.map((order) => {
 					let src = '';
-					if (order.orderStatus === 'PENDING') src = './PENDING.png';
-					else if (order.orderStatus === 'DELIVERING') src = './DELIVERING.png';
-					else src = './RECEIVED.png';
+					if (order.orderStatus === 'PENDING') src = '/PENDING.png';
+					else if (order.orderStatus === 'DELIVERING') src = '/DELIVERING.png';
+					else src = '/RECEIVED.png';
 					return (
 						<Link to={`${order.orderID}`}>
-							<div className="flex flex-row justify-start gap-10 px-4 py-2 shadow-md my-2 hover:cursor-pointer ">
+							<div onClick={handleShowOrderDetail} className="flex flex-row justify-start gap-10 px-4 py-2 shadow-md my-2 hover:cursor-pointer ">
 								{/* orderImage */}
-								<img src={src} width={80} height={'auto'} />
+								<img src={src} width={100} height={'auto'} />
 								{/* order Content*/}
 								<div className="px-2 py-2">
 									<h3 className=" text-sm text-colorGrayText font-light">
@@ -97,6 +100,7 @@ const MyOrder = () => {
 					);
 				})}
 			</div>
+			<Outlet />
 		</div>
 	);
 };
