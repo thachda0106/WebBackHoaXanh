@@ -1,10 +1,18 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import './style.css';
 import Context from '../../../constants/Context'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { Actions } from '../../../constants/Actions';
+import { Functions } from '../../../utils/Function';
+
 
 function Order() {
 	const [state, dispatch] = useContext(Context)
+	const logout = () => {
+		dispatch(Actions.deleteCurUser())
+		Functions.showToast('success','Đăng xuất thành công!')
+	}
+
 	return (
 		<div className=" w-auto h-full flex flex-row items-center">
 			{/* my order */}
@@ -38,7 +46,7 @@ function Order() {
 			</div>
 
 			<div className="h-full account-menu relative">
-				<Link className=" block h-full flex flex-row bg-colorPrimary items-center px-6" to="/profile">
+				<Link className=" block h-full flex flex-row bg-colorPrimary items-center px-6" to={state.userLogin.isLogin ? '/profile' : '/login'}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						class="h-5 w-5 text-white mr-1"
@@ -54,25 +62,31 @@ function Order() {
 					<p className="text-white font-normal">Tài khoản</p>
 				</Link>
 				<div className="dropdown-items hidden bg-colorPrimary absolute top-12 left-0 hover:cursor-pointer p-2 w-40  ">
-					{state.userLogin.isLogin? ( <ul>
+					{state.userLogin.isLogin ? (<ul>
 						<li className="w-auto h-6 text-white hover:bg-colorPrimaryDark block mt-2 ">
-							Thông tin các nhân
+							Thông tin cá nhân
 						</li>
 						<li className="w-auto h-6 text-white hover:bg-colorPrimaryDark block mt-2 ">Mã khuyến mãi</li>
 						<li className="w-auto h-6 text-white hover:bg-colorPrimaryDark block mt-2 ">
 							Thay đổi mật khẩu
 						</li>
-						<li className="w-auto h-6 text-white hover:bg-colorPrimaryDark block mt-2 ">
+						<li className="w-auto h-6 text-white hover:bg-colorPrimaryDark block mt-2 " onClick={() => { logout() }}>
 							Đăng xuất
 						</li>
-					</ul> ) : <ul>
-						<li className="w-auto h-6 text-white hover:bg-colorPrimaryDark block mt-2 ">
-							Đăng nhập
-						</li>
-						<li className="w-auto h-6 text-white hover:bg-colorPrimaryDark block mt-2 ">Đăng ký</li>
-						
-					</ul> }
-					
+					</ul>) : <ul>
+						<Link to="/login">
+							<li className="w-auto h-6 text-white hover:bg-colorPrimaryDark block mt-2 ">
+								Đăng nhập
+							</li>
+						</Link>
+						<Link to="/signup">
+							<li className="w-auto h-6 text-white hover:bg-colorPrimaryDark block mt-2 ">
+								Đăng ký
+							</li>
+						</Link>
+
+					</ul>}
+
 				</div>
 			</div>
 		</div>
