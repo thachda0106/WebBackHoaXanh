@@ -16,12 +16,17 @@ const Loading = () => {
         setData()
 	}, []);
 	return (
-		<div className="fixed top-52 left-1/3 z-40 w-1/6 h-auto flex flex-col justify-center ">
-			<img src={'loading_img.gif'} />
-			<div className="w-full flex justify-center align-middle">
-				<img className="w-3/12" src={'loading_img_2.gif'} />
-			</div>
+		<div className="z-40 fixed top-0 left-0 w-full h-full flex bg-colorBgTransparent justify-center items-center ">
+				<div className="">
+					<img src={'../spinner.gif'} width = {50} height = {50}/>
+				</div>
 		</div>
+		// <div className="fixed top-52 left-1/3 z-40 w-1/6 h-auto flex flex-col justify-center ">
+		// 	<img src={'loading_img.gif'} />
+		// 	<div className="w-full flex justify-center align-middle">
+		// 		<img className="w-3/12" src={'loading_img_2.gif'} />
+		// 	</div>
+		// </div>
 	);
 };
 
