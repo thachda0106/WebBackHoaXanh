@@ -71,6 +71,21 @@ export const initState = {
 	},
 	data: {
 		isLoading: false
+	},
+	user: {
+		userID: "",
+        fullName: "",
+        username: "",
+        password: "",
+        phoneNumber: "",
+        email: "",
+        avatar:
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png",
+        userType: "user",
+        userToken: "",
+        shippingAddress: "",
+        userListCart: [],
+        userListVoucher: [],
 	}
 };
 const reducer = (state, action) => {
@@ -99,11 +114,25 @@ const reducer = (state, action) => {
 					info: {}
 				}
 			}
-		case 'SIGNUP':			
-			state.userLogin.info = [...state.userLogin.info, action.userLogin.info];
+		case 'SIGNUP':		
+			
 		return {
 				...state,
-				
+				user: {
+					userID: action.user.userID,
+					fullName: action.user.fullName,
+					username: action.user.username,
+					password: action.user.password,
+					phoneNumber: action.user.phoneNumber,
+					email: action.user.email,
+					avatar:
+					  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png",
+					userType: "user",
+					userToken: "",
+					shippingAddress: "",
+					userListCart: [],
+					userListVoucher: [],
+				}
 			}
 
 		case 'DELETE_USERCART':
