@@ -11,6 +11,7 @@ import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { Actions } from '../../../constants/Actions';
 import { Functions } from '../../../utils/Function';
 import { useNavigate } from 'react-router-dom';
+import { addUser } from '../../../apiServices/userServices'
 
 const Signup = () => {
   const [state, dispatch] = useContext(Context)
@@ -73,8 +74,10 @@ const Signup = () => {
         phoneNumber,
         email,
       };
-     dispatch(Actions.signup(newUser))
-     Functions.showToast('success', 'Đăng ký thành công!')
+      let res = await addUser(newUser)
+      if(res.status > 199 && res.status <300)
+     dispatch(Actions.signup(newUser))    
+    else  Functions.showToast("error", "Không thể đăng ký");
         var sto = setTimeout(() => {
           return navigate('/login')
         }, 1000);

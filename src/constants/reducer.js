@@ -114,7 +114,7 @@ const reducer = (state, action) => {
 					info: {}
 				}
 			}
-		case 'SIGNUP':		
+		case 'SIGNUP':	
 			
 		return {
 				...state,

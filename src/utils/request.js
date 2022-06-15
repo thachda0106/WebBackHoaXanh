@@ -12,7 +12,7 @@ export const get = async (path, options = {}) => {
 
 export const post = async (path, options = {}) => {
 	const response = await request.post(path, options);
-	return response;
+		return response;
 }
 
 export const del = async (path, options = {}) => {
@@ -26,3 +26,4 @@ export const put = async (path, options = {}) => {
 }
 
 export default request;
+
