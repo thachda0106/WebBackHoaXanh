@@ -62,5 +62,10 @@ export const Actions = {
         }
    },
 
-
+   signup(user) {
+    return {
+      type: 'SIGNUP',
+      user
+    }
+  },
 }

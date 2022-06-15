@@ -17,7 +17,7 @@ export const Functions = {
     return priceVND + "₫";
   },
 
-  findVoucherUser(voucherID, voucherList){
+  findVoucherUser(voucherID, voucherList) {
     return voucherList.find(voucher => voucher.voucherID == voucherID)
   },
 
@@ -33,8 +33,8 @@ export const Functions = {
     return max;
   },
 
-  showToast: (type, text) =>{
-    toast[type](text, {position: toast.POSITION.TOP_CENTER,autoClose: 2000});
+  showToast: (type, text) => {
+    toast[type](text, { position: toast.POSITION.TOP_CENTER, autoClose: 2000 });
   },
   // toastNeedLogin: () => {
   //   Toast.show({
@@ -82,8 +82,8 @@ export const Functions = {
       }
     }
   },
-  checkProductCart(listCart, productID){
-      return listCart.some(cart=> cart.productID == productID)
+  checkProductCart(listCart, productID) {
+    return listCart.some(cart => cart.productID == productID)
   },
   // Convert kiểu date sang timestamp (không có giây)
   dateToTimestamp: (date) => {
@@ -176,10 +176,10 @@ export const Functions = {
   },
 
   // chuyen doi sang tieng viet orderStatus
-  covertOrderStatus: (status)=>{
-    if(status === 'ALL') return 'Tất cả'
-    else if(status === 'PENDING') return 'Đang chờ duyệt'
-    else if(status === 'DELIVERING') return 'Đang giao'
+  covertOrderStatus: (status) => {
+    if (status === 'ALL') return 'Tất cả'
+    else if (status === 'PENDING') return 'Đang chờ duyệt'
+    else if (status === 'DELIVERING') return 'Đang giao'
     else return 'Đã nhận'
   },
   // Lấy tên đơn hàng
@@ -227,34 +227,34 @@ export const Functions = {
   // So sánh xem ngày hiện tại có nằm trong khoảng ngày này không
   compareTimeNow: (start, end) => {
     let now = parseInt(new Date().getTime() / 1000)
-    if(now < start) return false
-    if(now - end > 86400) return false
+    if (now < start) return false
+    if (now - end > 86400) return false
     return true
   },
 
   //Lấy số sao trung bình của một sản phẩm
-  getProductStars: (productID, comments) =>{
+  getProductStars: (productID, comments) => {
     let rates = 0;
     let star = 0;
     let sum = 0;
-    for(let i = 0; i<comments.length; i++){
-      if(comments[i].productID == productID){
+    for (let i = 0; i < comments.length; i++) {
+      if (comments[i].productID == productID) {
         sum += 5;
         star += comments[i].starNumber
       }
     }
-    if(sum === 0) return 5
+    if (sum === 0) return 5
     rates = (star / sum) * 5
     return Math.round(rates * 10) / 10
   },
 
   //Kiểm tra xem sản phẩm đó còn hàng hay không
-  checkProductQuantity: (cartList, products) =>{
-    for(let i = 0 ;i <cartList.length; i++){
-      if(cartList[i].check){
+  checkProductQuantity: (cartList, products) => {
+    for (let i = 0; i < cartList.length; i++) {
+      if (cartList[i].check) {
         let product = Function.findProduct(products, cartList[i].productID)
-        if(product.quantity < cartList[i].quantity){
-          Function.showToast("error", product.name+" chỉ còn lại "+product.quantity+" sản phẩm, bạn vui lòng chọn ít hơn");
+        if (product.quantity < cartList[i].quantity) {
+          Function.showToast("error", product.name + " chỉ còn lại " + product.quantity + " sản phẩm, bạn vui lòng chọn ít hơn");
           return false;
         }
       }
@@ -262,24 +262,24 @@ export const Functions = {
     return true
   },
 
-  htmlOrderProducts: (order)=>{
+  htmlOrderProducts: (order) => {
     console.log(order)
-          let html = ``
-          order.listProductCart.forEach(product => {
-            html += `        
+    let html = ``
+    order.listProductCart.forEach(product => {
+      html += `        
               <div style="margin: 0; display: flex; flex-direction:row; align-items:center; padding: 10">
         <span style="margin-right: 20px"> ${product.quantity}sp </span> 
           <img src="${product.img}" style="width:40px; height:40px;style="margin-right: 20px"">
-          <p> ${product.productName} <span>${Function.toVND( product.price * (100 - product.priceDiscount)/100)}</span></p>
+          <p> ${product.productName} <span>${Function.toVND(product.price * (100 - product.priceDiscount) / 100)}</span></p>
         </div>
       </div>`
-            
-          })
-          return html
+
+    })
+    return html
   },
 
-  getAvatarUser: (userID, usersList)=>{
-    return usersList.find(user=>user.userID == userID)?.userImage
+  getAvatarUser: (userID, usersList) => {
+    return usersList.find(user => user.userID == userID)?.userImage
   }
-  
+
 };

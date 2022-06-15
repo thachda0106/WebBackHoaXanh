@@ -28,6 +28,7 @@ root.render(
 	// <React.StrictMode>
 	<Provider>
 		<BrowserRouter>
+		<ToastContainer/>
 			<Header />
 			<Routes>
 				<Route path="/" element={<App />}>

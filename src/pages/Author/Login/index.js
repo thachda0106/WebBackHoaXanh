@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react'
 import './styles.css'
 import Context from '../../../constants/Context'
 import { Link } from 'react-router-dom';
-import { text } from '@fortawesome/fontawesome-svg-core';
 import { Actions } from '../../../constants/Actions';
 import { useNavigate } from 'react-router-dom';
 import { Functions } from '../../../utils/Function';
@@ -18,15 +17,18 @@ const Login = () => {
   const navigate = useNavigate()
 
   const handleLogin = () => {
+    let ok = false
     for (let i = 0; i < users.length; i++) {
       if (username === users[i].username && password === users[i].password) {
         dispatch(Actions.setCurrentUser(users[i]))
+        ok = true
         Functions.showToast('success', 'Đăng nhập thành công!')
-        return navigate('/')
+        var sto = setTimeout(() => {
+          return navigate('/')
+        }, 1000);
       }
-    }
-    Functions.showToast('error', 'Sai tên đăng nhập hoặc mật khẩu')
-
+    } if (!ok)
+      Functions.showToast('error', 'Sai tên đăng nhập hoặc mật khẩu')
   }
 
 
@@ -35,13 +37,13 @@ const Login = () => {
       <div className='login-background'>
         <div className='login-container'>
           <div className='login-content row'>
-            <div className='col-12 text-login'>Đăng nhập</div>            
+            <div className='col-12 text-login'>Đăng nhập</div>
             <div className='col-12 form-group input-wrapper'>
-            <FontAwesomeIcon icon={faUser} color='#999' className='icon'/>
+              <FontAwesomeIcon icon={faUser} color='#999' className='icon' />
               <input type="text" className='form-control login-input' placeholder='Tên đăng nhập' value={username} onChange={(e) => { setUsername(e.target.value) }} />
             </div>
             <div className='col-12 form-group input-wrapper'>
-            <FontAwesomeIcon icon={faLock} color='#999' className='icon'/>
+              <FontAwesomeIcon icon={faLock} color='#999' className='icon' />
               <input type="password" className='form-control login-input' placeholder='Mật khẩu' value={password} onChange={(e) => { setPassword(e.target.value) }} />
             </div>
             <Link to="/forgot-password">
