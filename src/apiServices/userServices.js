@@ -31,22 +31,7 @@ export const updateUser = async ({ user }) => {
 	}
 };
 
-export const addUser = async (user) => {
-	let data = JSON.stringify({
-		userID: user.userID,
-		// userImage: user.userImage,
-		fullName: user.fullName,
-		emailAddress: user.emailAddress,
-		username: user.username,
-		password: user.password,
-		address: "",
-		phoneNumber: user.phoneNumber,
-
-		userType: "USER",
-
-		shippingAddress: "",
-	})
-	console.log("data: " + data)
+export const addUser = async ( user ) => {
 	try {
 		const res = await request.post('users/add', JSON.stringify(data))
 		return res

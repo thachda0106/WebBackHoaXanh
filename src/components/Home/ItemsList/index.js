@@ -1,11 +1,12 @@
 import React, { useState, useContext } from 'react';
 import Card from './Card';
 import Context from '../../../constants/Context';
+import { Functions } from '../../../utils/Function';
 function ItemsList({ type, categoryID, categoryName }) {
 	const [ state, dispatch ] = useContext(Context);
 	const [ productsShow, setProductsShow ] = useState(() => {
 		if (type === 'discount') {
-			return state.data.products.filter((product) => product.discountPercent > 0).slice(0,8)
+			return state.data.products.filter((product) =>  Functions.checkHot(product)).slice(0,8)
 		} else {
 			return state.data.products.filter((product) => product.categoryID == categoryID).slice(0,8)
 		}
