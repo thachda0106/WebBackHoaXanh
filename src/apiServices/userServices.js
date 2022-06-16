@@ -9,7 +9,7 @@ export const searchAllUsers = async () => {
 	}
 };
 
-export const deleleUserCart = async ({userID, productID}) => {
+export const deleleUserCart = async ({ userID, productID }) => {
 	try {
 		const res = await request.get(`delete-product-from-cart/${userID}/${productID}`);
 		return res.data
@@ -20,9 +20,9 @@ export const deleleUserCart = async ({userID, productID}) => {
 };
 
 
-export const updateUser = async ({user}) => {
+export const updateUser = async ({ user }) => {
 	try {
-		const res = await request.put(`users/update/${user.userID}`, JSON.stringify(user) );
+		const res = await request.put(`users/update/${user.userID}`, JSON.stringify(user));
 		return res
 	} catch (error) {
 		return error.response
@@ -30,3 +30,12 @@ export const updateUser = async ({user}) => {
 	}
 };
 
+export const addUser = async ({ user }) => {
+	try {
+		const res = await request.post('/users/add', JSON.stringify(user))
+		return res
+	} catch (error) {
+		console.log(error.response);
+		return error.response
+	}
+};
