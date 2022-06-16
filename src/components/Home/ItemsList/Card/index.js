@@ -4,9 +4,10 @@ import {Functions} from '../../../../utils/Function'
 function Cart({ product }) {
 	return (
 		<Link to={`/products/${product.productID}`} >
-			<div className="h-auto bg-white drop-shadow-md hover:drop-shadow-xl p-3">
-				<img src={product.productImage} />
-				<h3>{product.name}</h3>
+			<div className="h-auto max-h-96 bg-white drop-shadow-md hover:drop-shadow-xl p-3 relative">
+				{Functions.checkHot(product) && <img src ={"/blink-sale.gif"} width="50" height="50" className="absolute top-0 left-0" />}
+				<img src={product.productImage} width="auto" height="auto"/>
+				<h3>{Functions.cropText(product.name)}</h3>
 				<p className="flex flex-row">
 					{Functions.toVND(product.price - product.discountPercent * product.price / 100)}{' '}
 					{product.discountPercent && (

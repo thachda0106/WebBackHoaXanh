@@ -65,6 +65,8 @@ function Cart() {
 		}
 	}, [orderDetailCart])
 
+
+	console.log({voucher, discountValue})
 	return (
 		// {Container}
 		<div>
@@ -137,7 +139,7 @@ function Cart() {
 							{/* Total price */}
 							<div className="flex flex-row justify-between w-full px-4">
 								<p>Giảm giá</p>
-								<span className="text-red-400 ">- {Functions.toVND(discountValue)}</span>
+								<span className="text-red-400 ">- {discountValue ? Functions.toVND(discountValue) : 0}</span>
 							</div>
 							<div className="flex flex-row justify-between w-full px-4">
 								<p>Tổng tiền</p>

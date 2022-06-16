@@ -134,7 +134,7 @@ const OrderDetail = () => {
 						</div>
 						<div className="flex flex-row justify-start w-full px-4 gap-4">
 							<p>Tổng tiền:</p>
-							<span>{Functions.toVND(Functions.getOrderAllPrice(data.order) - data.order.voucherDiscount)}</span>
+							<span>{Functions.toVND(Functions.getOrderAllPrice(data.order))}</span>
 						</div>
 						
 					</div>
