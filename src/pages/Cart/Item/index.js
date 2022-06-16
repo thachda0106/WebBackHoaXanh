@@ -35,15 +35,17 @@ const Items = ({ onOrder, onVoucher, voucher, item, onCheckedItem, handleDeleteI
 		setData({ quantity: data.quantity + 1, price: data.price + priceTemp });
 	};
 
-	if (voucher && voucher.productID == item.productID && checkboxRef.current.checked) {
-		let discountTotal = data.price - data.price * data.quantity * voucher.discountValue / 100;
-		discountTotal > voucher.maxDiscountValue
-			? onVoucher(voucher.maxDiscountValue)
-			: onVoucher(voucher.discountTotal);
-	}
+
 	useEffect(() => {
 		let cartOrder = { checked: checkboxRef.current.checked, productID: item.productID, data };
 		onOrder(cartOrder);
+
+		if (checkboxRef.current.checked && voucher?.productID === item?.productID ) {
+		let discountTotal = data.price - data.price * voucher.discountValue / 100;
+		discountTotal > voucher.maxDiscountValue
+			? onVoucher(voucher.maxDiscountValue)
+			: onVoucher(discountTotal);
+	}
 	});
 
 	return (

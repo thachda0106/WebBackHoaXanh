@@ -115,26 +115,8 @@ const reducer = (state, action) => {
 				}
 			}
 		case 'SIGNUP':		
-			
-		return {
-				...state,
-				user: {
-					userID: action.user.userID,
-					fullName: action.user.fullName,
-					username: action.user.username,
-					password: action.user.password,
-					phoneNumber: action.user.phoneNumber,
-					email: action.user.email,
-					avatar:
-					  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png",
-					userType: "user",
-					userToken: "",
-					shippingAddress: "",
-					userListCart: [],
-					userListVoucher: [],
-				}
-			}
-
+			state.data.users = [...state.data.users, action.user]
+			return state
 		case 'DELETE_USERCART':
 			state.userLogin.info.userListCart = state.userLogin.info.userListCart.filter(
 				(product) => product.productID != action.productID

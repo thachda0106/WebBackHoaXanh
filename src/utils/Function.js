@@ -139,7 +139,7 @@ export const Functions = {
   },
 
   // Cắt ngắn chuỗi đi
-  cropText: (text, length = 15) => {
+  cropText: (text, length = 25) => {
     if (text.length < length) return text;
     else return text.slice(0, length - 3) + "...";
   },
@@ -280,6 +280,17 @@ export const Functions = {
 
   getAvatarUser: (userID, usersList) => {
     return usersList.find(user => user.userID == userID)?.userImage
-  }
+  },
+
+//   imgToBase64: (image) => {
+//     let base64String = ''
+//     var reader = new FileReader();
+//     reader.onload = function () {
+//         base64String = reader.result.replace("data:", "")
+//             .replace(/^.+,/, "");
+//     }
+//     reader.readAsDataURL(image);
+//     console.log(base64String); ;
+// }
 
 };
