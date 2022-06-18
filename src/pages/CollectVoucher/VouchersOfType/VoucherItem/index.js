@@ -33,7 +33,7 @@ const VoucherItem = ({ voucher }) => {
 			{/* Items content main */}
 			<div className="flex flex-row w-full h-auto items-center justify-self-auto gap-32 my-2 ">
 				{/* image product */}
-				<img src={product.productImage} width={60} height={60} />
+				<img src={product?.productImage} width={60} height={60} />
 				{/* voucher discount */}
 				<p className="text-colorPrimary w-32 ">
 					<span className="text-red-500 font-bold text-lg ">{voucher.discountValue}%</span> Giảm <br />tối đa{' '}

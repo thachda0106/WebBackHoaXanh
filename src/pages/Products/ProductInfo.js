@@ -2,12 +2,12 @@ import React, { useState, useContext, useCallback } from 'react';
 import ReactStars from 'react-rating-stars-component';
 import { useParams } from 'react-router-dom';
 import Context from '../../constants/Context';
-import { Functions } from '../../utils/Function';
 import { Actions } from '../../constants/Actions';
 import { addToCart } from '../../apiServices/productServices';
 import Comments from './Comments';
 import { addComment } from '../../apiServices/commentServices';
-import LoadingAwait from '../../components/Loading/LoadingAwait'
+import LoadingAwait from '../../components/Loading/LoadingAwait';
+import { Functions } from '../../utils/Function';
 const ProductInfo = () => {
 	const params = useParams();
 	const [ state, dispatch ] = useContext(Context);
@@ -27,7 +27,7 @@ const ProductInfo = () => {
 			return { ...pre, comment: e.target.value };
 		});
 	};
-	const [isLoading,setLoading] = useState(false) 
+	const [ isLoading, setLoading ] = useState(false);
 	const [ refresh, setRefresh ] = useState();
 	const handleRating = async () => {
 		if (ratingData.star <= 0 || ratingData.comment === '') alert('Xin vui lòng đánh giá sao và comment!');
@@ -48,7 +48,7 @@ const ProductInfo = () => {
 			}
 		}
 	};
-	const handelAddCart = async()=>{
+	const handelAddCart = async () => {
 		let cartInfo = {
 			productID: product.productID,
 			picture: product.productImage,
@@ -60,12 +60,13 @@ const ProductInfo = () => {
 		};
 		setLoading(true);
 		let res = await addToCart(cartInfo, state.userLogin.info.userID);
-			if (res.status >= 200 && res.status < 300) {
+		if (res.status >= 200 && res.status < 300) {
 			dispatch(Actions.addToCart(cartInfo));
-			setLoading(false)
-			window.alert('Đã thêm sản phẩm vào giỏ hàng!');
-		} else window.alert('Lỗi thêm sản phẩm vào giỏ hàng!');
-	}
+			Functions.showToast('success', 'Đã thêm sản phẩm vào giỏ hàng!');
+		}
+		else Functions.showToast('error', 'Lỗi thêm sản phẩm vào giỏ hàng!');
+		setLoading(false);
+	};
 
 	return (
 		<div className="w-full h-auto bg-colorBgGray flex flex-col justify-center items-center ">
@@ -126,18 +127,17 @@ const ProductInfo = () => {
 								</p>
 							)}
 						</p>
-						{!Functions.checkProductCart(state.userLogin.info.userListCart, product.productID) && state.userLogin.isLogin? (
+						{!Functions.checkProductCart(state.userLogin.info.userListCart, product.productID) &&
+						state.userLogin.isLogin ? (
 							<button
-								onClick ={handelAddCart}
+								onClick={handelAddCart}
 								class="px-4 py-1 text-sm rounded-full border border-purple-200 bg-colorPrimary text-white  hover:bg-purple-400 hover:text-black "
 							>
 								Thêm vào giỏ hàng
 							</button>
 						) : (
-							<div
-								class="w-52 px-4 py-1 text-sm font-bold rounded-full border border-purple-200 bg-colorGrayText text-colorPrimary"
-							>
-								{!state.userLogin.isLogin? 'Thêm vào giỏ hàng': 'Đã thêm vào giỏ hàng'}
+							<div class="w-52 px-4 py-1 text-sm font-bold rounded-full border border-purple-200 bg-colorGrayText text-colorPrimary">
+								{!state.userLogin.isLogin ? 'Thêm vào giỏ hàng' : 'Đã thêm vào giỏ hàng'}
 							</div>
 						)}
 					</div>

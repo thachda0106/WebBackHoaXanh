@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './style.css';
 import Search from '../Search';
 import Order from '../Order';
 import {Link} from 'react-router-dom'
+import Context from '../../../constants/Context'
 function Header() {
 	return (
 		//container

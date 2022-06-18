@@ -9,13 +9,13 @@ export const searchAllUsers = async () => {
 	}
 };
 
-export const deleleUserCart = async ({ userID, productID }) => {
+export const deleleUserCart = async (userID, productID) => {
 	try {
-		const res = await request.get(`delete-product-from-cart/${userID}/${productID}`);
+		const res = await request.get(`users/delete-product-from-cart/${userID}/${productID}`);
 		return res.data
 	} catch (error) {
-		return error.response
 		console.log(error);
+		return error.response
 	}
 };
 

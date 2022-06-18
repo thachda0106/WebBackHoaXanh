@@ -35,9 +35,8 @@ const VoucherList = ({onBackToCart}) => {
 							return (
 								// voucher container
 								<div key={voucher.voucherID} className="flex flex-row px-4 py-2 gap-2  ">
-									{/* image product discount */}
 									<img
-										src={Functions.findProduct(state.data.products, voucher.productID).productImage}
+										src={Functions.findProduct(state.data.products, voucher.productID)?.productImage}
 										width={150}
 										height={'auto'}
 									/>

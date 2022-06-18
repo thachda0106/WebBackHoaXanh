@@ -18,6 +18,8 @@ import NotFound from './components/NotFound';
 import Header from './components/Home/Header';
 import Footer from './components/Home/Footer';
 import ProductInfo from './pages/Products/ProductInfo';
+import ProductsOfType from './pages/Products/ProductsOfType';
+
 import VoucherList from './pages/Cart/VoucherList';
 import CollectVoucher from './pages/CollectVoucher';
 import MyOrder from './pages/MyOrder';
@@ -35,6 +37,7 @@ root.render(
 					<Route path="" element={<Home />} />
 					<Route path="cart" element={<Cart />} />
 					<Route path="products/:id" element={<ProductInfo />} />
+					<Route path="categories/:type" element = {< ProductsOfType />}  />
 					<Route path="my_voucher" element={<VoucherList />} />
 					<Route path="collect_voucher" element={<CollectVoucher />} />
 					<Route path="my-order" element={<MyOrder />}>

@@ -5,9 +5,12 @@ import Slider from '../../components/Home/Slider';
 import Category from '../../components/Home/Category';
 import ItemsList from '../../components/Home/ItemsList';
 import Loading from '../../components/Loading';
+import { Navigate } from 'react-router-dom';
+const handleChangeType = (categoryID) => {
+	return <Navigate to={`categories/${categoryID}`}/>
+};
 function Home() {
 	const [ state, dispatch ] = useContext(Context);
-	console.log(state);
 	return (
 		<div>
 			<Slider />
@@ -16,7 +19,7 @@ function Home() {
 			) : (
 				<div className="w-full h-auto flex flex-col justify-center items-center bg-colorBgGray">
 					<div className="w-5/6">
-						<Category categories={state.data.categories} />
+						<Category onChange={handleChangeType} categories={state.data.categories} />
 					</div>
 					<div className="w-5/6">
 						<ItemsList type={'discount'} categoryName={'Đang giảm giá'} />
