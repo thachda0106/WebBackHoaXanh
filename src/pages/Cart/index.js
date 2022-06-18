@@ -16,8 +16,8 @@ function Cart() {
 	const [ refresh, setRefresh ] = useState();
 	const handleDeleteItem = (productID) => {
 		dispatch(Actions.deleteUserCart(productID));
-		setRefresh(Math.random());
 		deleleUserCart(state.userLogin.info.userID, productID);
+		setRefresh(Math.random());
 	};
 	const [ voucher, setVoucher ] = useState();
 	var voucherListRef = useRef();

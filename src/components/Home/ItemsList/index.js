@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import Card from './Card';
 import Context from '../../../constants/Context';
 import { Functions } from '../../../utils/Function';
+import {Link} from 'react-router-dom'
 function ItemsList({ type, categoryID, categoryName }) {
 	const [ state, dispatch ] = useContext(Context);
 	const [ productsShow, setProductsShow ] = useState(() => {
@@ -23,9 +24,11 @@ function ItemsList({ type, categoryID, categoryName }) {
 				})}
 			</div>
 			{productsShow.length > 0 ? (
-				<button className="px-4 py-1 mt-1 text-sm text-white font-semibold rounded-full border bg-colorPrimary border-purple-200 hover:bg-colorPrimaryDark ">
-					Xem tất cả
-				</button>
+				<Link to={`/categories/${type? type : categoryID}`} >
+					<button className="px-4 py-1 mt-1 text-sm text-white font-semibold rounded-full border bg-colorPrimary border-purple-200 hover:bg-colorPrimaryDark ">
+						Xem tất cả
+					</button>
+				</Link>
 			) : (
 				'Không có sản phẩm nào!'
 			)}
