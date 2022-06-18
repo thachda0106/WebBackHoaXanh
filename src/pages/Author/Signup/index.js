@@ -14,16 +14,16 @@ import { Functions } from '../../../utils/Function';
 import { useNavigate } from 'react-router-dom';
 import { addUser } from '../../../apiServices/userServices';
 const Signup = () => {
-	const [ state, dispatch ] = useContext(Context);
-	const users = [ ...state.data.users ];
+	const [state, dispatch] = useContext(Context);
+	const users = [...state.data.users];
 	const navigate = useNavigate();
 
-	const [ username, setUsername ] = useState('');
-	const [ password, setPassword ] = useState('');
-	const [ retypePassword, setRetypePassword ] = useState('');
-	const [ fullName, setFullName ] = useState('');
-	const [ phoneNumber, setPhoneNumber ] = useState('');
-	const [ email, setEmail ] = useState('');
+	const [username, setUsername] = useState('');
+	const [password, setPassword] = useState('');
+	const [retypePassword, setRetypePassword] = useState('');
+	const [fullName, setFullName] = useState('');
+	const [phoneNumber, setPhoneNumber] = useState('');
+	const [email, setEmail] = useState('');
 
 	const checkInput = () => {
 		if (
@@ -44,6 +44,11 @@ const Signup = () => {
 
 		if (!Functions.checkPhone(phoneNumber)) {
 			Functions.showToast('error', 'Số điện thoại không đúng định dạng');
+			return false;
+		}
+
+		if (!Functions.checkEmail(email)) {
+			Functions.showToast('error', 'Email không đúng định dạng');
 			return false;
 		}
 

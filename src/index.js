@@ -24,6 +24,8 @@ import VoucherList from './pages/Cart/VoucherList';
 import CollectVoucher from './pages/CollectVoucher';
 import MyOrder from './pages/MyOrder';
 import OrderDetail from './pages/MyOrder/OrderDetail';
+import Profile from './pages/user/profile';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
@@ -46,6 +48,7 @@ root.render(
 					<Route path="login" element={<Login />} />
 					<Route path="signup" element={<Signup />} />
 					<Route path="forgot-password" element={<ForgotPass />} />
+					<Route path="profile" element={<Profile />} />
 					{/* NotFound */}
 					<Route path="*" element={<NotFound />} />
 				</Route>
