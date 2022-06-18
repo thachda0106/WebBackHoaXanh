@@ -68,4 +68,10 @@ export const Actions = {
       user
     }
   },
+    updateUser(user){
+    return {
+        type: 'UPDATE_USER',
+        user
+    }
+   }
 }

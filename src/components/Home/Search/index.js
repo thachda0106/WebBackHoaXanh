@@ -5,8 +5,8 @@ function Search({text}) {
 	return (
 		
 		<div className="w-auto h-full flex">
-			{searchText && <Navigate to= {`categories/${searchText}`} replace = {true} />}
-			{!searchText && <Navigate to= {`/`} replace = {true} />}
+			{/* {searchText && <Navigate to= {`categories/${searchText}`} replace = {true} />}
+			{!searchText && <Navigate to= {`/`} replace = {true} />} */}
 			<div className="w-auto h-9 flex flex-row items-center bg-white self-center rounded-lg mx-4">
 				<input value={searchText} onChange={(e)=> setSearchText(e.target.value)} className="px-2 focus:outline-none w-96 text-sm font-normal" placeholder = {text} />
 				<svg 
