@@ -21,19 +21,29 @@ export const deleleUserCart = async (userID, productID) => {
 };
 
 
-export const updateUser = async ({ user }) => {
+export const updateUser = async (user) => {
 	try {
 		const res = await request.put(`users/update/${user.userID}`, JSON.stringify(user));
 		return res
 	} catch (error) {
-		return error.response
 		console.log(error);
+		return error.response
 	}
 };
 
 export const addUser = async ( user ) => {
 	try {
-		const res = await request.post('users/add', JSON.stringify(data))
+		const res = await request.post('users/add', JSON.stringify(user))
+		return res
+	} catch (error) {
+		console.log(error.response);
+		return error.response
+	}
+};
+
+export const updateAvatar = async(userID, file) => {
+	try {
+		const res = await request.post(`/users/upload-photo/${userID}`, JSON.stringify(file))
 		return res
 	} catch (error) {
 		console.log(error.response);

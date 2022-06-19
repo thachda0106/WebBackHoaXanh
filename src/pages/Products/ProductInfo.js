@@ -127,8 +127,8 @@ const ProductInfo = () => {
 								</p>
 							)}
 						</p>
-						{!Functions.checkProductCart(state.userLogin.info.userListCart, product.productID) &&
-						state.userLogin.isLogin ? (
+						{state.userLogin.isLogin && !Functions.checkProductCart(state.userLogin.info.userListCart, product.productID) ?
+						 (
 							<button
 								onClick={handelAddCart}
 								class="px-4 py-1 text-sm rounded-full border border-purple-200 bg-colorPrimary text-white  hover:bg-purple-400 hover:text-black "
@@ -143,20 +143,24 @@ const ProductInfo = () => {
 					</div>
 				</div>
 			</div>
+			{}
 			<div className="w-5/6 h-auto my-2 ">
 				<span> Nhập bình luận và đánh giá</span>
 				<ReactStars count={5} onChange={ratingChanged} size={24} activeColor="#ffd700" />,
 				<textarea
 					value={ratingData.comment}
 					onChange={CommentChanged}
+					readOnly={!state.userLogin.isLogin ? true : false }
 					rows="4"
 					placeholder="Mời anh/chị bình luận hoặc đặt câu hỏi..."
 					className="border border-slate-700 font-light text-sm w-60"
 				/>
 				<br />
 				<button
+					type="button"
 					onClick={handleRating}
-					className=" px-4 py-1 text-sm rounded-full border border-purple-500 bg-purple-700 text-white hover:bg-opacity-25  "
+					disabled={!state.userLogin.isLogin ? true : false }
+					className={`px-4 py-1 text-sm rounded-full border border-purple-500 bg-purple-700 text-white hover:bg-opacity-25 ${!state.userLogin.isLogin ? 'bg-opacity-25': ''  } `}
 				>
 					Gửi
 				</button>

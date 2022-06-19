@@ -88,7 +88,8 @@ const Signup = () => {
 				userListCart: [],
 				userListVoucher: []
 			};
-
+			
+			console.log(newUser)
 			const response = await toast.promise(addUser(newUser), {
 				pending: 'Đăng ký tài khoản'
 			});
@@ -98,7 +99,10 @@ const Signup = () => {
 				setTimeout(() => {
 					return navigate('/login');
 				}, 1000);
-			} else Functions.showToast('error', 'Đăng ký không thành công!');
+			} else{
+				console.log(response)
+				Functions.showToast('error', 'Đăng ký không thành công!');
+			}
 		}
 	};
 

@@ -20,7 +20,8 @@ const Login = () => {
     let ok = false
     for (let i = 0; i < users.length; i++) {
       if (username === users[i].username && password === users[i].password) {
-        dispatch(Actions.setCurrentUser(users[i]))
+        // set user Login vao he thong 
+        dispatch(Actions.setCurrentUser(users[i])) 
         ok = true
         Functions.showToast('success', 'Đăng nhập thành công!')
         var sto = setTimeout(() => {
