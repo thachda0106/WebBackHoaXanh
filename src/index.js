@@ -25,7 +25,7 @@ import CollectVoucher from './pages/CollectVoucher';
 import MyOrder from './pages/MyOrder';
 import OrderDetail from './pages/MyOrder/OrderDetail';
 import Profile from './pages/user/profile';
-
+import ChangePassword from './pages/Author/ChangePassword'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
@@ -46,6 +46,7 @@ root.render(
 						<Route path=":orderID" element={<OrderDetail />} />
 					</Route>
 					<Route path="login" element={<Login />} />
+					<Route path="change_password" element={<ChangePassword />} />
 					<Route path="signup" element={<Signup />} />
 					<Route path="forgot-password" element={<ForgotPass />} />
 					<Route path="profile" element={<Profile />} />

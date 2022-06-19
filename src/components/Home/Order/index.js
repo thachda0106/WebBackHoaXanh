@@ -71,15 +71,17 @@ function Order() {
 									Thông tin cá nhân
 								</li>
 							</ Link>
+							<Link to="change_password">
+								<li className="w-auto h-6 text-white hover:bg-colorPrimaryDark block mt-2 ">
+									Đổi mật khẩu
+								</li>
+							</Link>
 
 							<Link to="my_voucher">
 								<li className="w-auto h-6 text-white hover:bg-colorPrimaryDark block mt-2 ">
 									Mã khuyến mãi
 								</li>
 							</Link>
-							<li className="w-auto h-6 text-white hover:bg-colorPrimaryDark block mt-2 ">
-								Thay đổi mật khẩu
-							</li>
 							<Link to='/login'>
 								<li className="w-auto h-6 text-white hover:bg-colorPrimaryDark block mt-2 " onClick={() => { logout() }}>Đăng xuất</li>
 							</Link>

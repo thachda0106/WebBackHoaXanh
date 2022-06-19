@@ -72,7 +72,7 @@ const Signup = () => {
 	const signup = async () => {
 		if (checkInput()) {
 			let newUser = {
-				userID: Number(Functions.getMaxIndex(users, "userID")) + 1,
+				// userID: Number(Functions.getMaxIndex(users, "userID")) + 1,
 				userImage:
 					'https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png',
 				fullName,
@@ -88,7 +88,8 @@ const Signup = () => {
 				userListCart: [],
 				userListVoucher: []
 			};
-
+			
+			console.log(newUser)
 			const response = await toast.promise(addUser(newUser), {
 				pending: 'Đăng ký tài khoản'
 			});
@@ -98,7 +99,10 @@ const Signup = () => {
 				setTimeout(() => {
 					return navigate('/login');
 				}, 1000);
-			} else Functions.showToast('error', 'Đăng ký không thành công!');
+			} else{
+				console.log(response)
+				Functions.showToast('error', 'Đăng ký không thành công!');
+			}
 		}
 	};
 

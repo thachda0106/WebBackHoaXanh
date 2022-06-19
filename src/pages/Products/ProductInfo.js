@@ -127,8 +127,8 @@ const ProductInfo = () => {
 								</p>
 							)}
 						</p>
-						{!Functions.checkProductCart(state.userLogin.info.userListCart, product.productID) &&
-						state.userLogin.isLogin ? (
+						{state.userLogin.isLogin && !Functions.checkProductCart(state.userLogin.info.userListCart, product.productID) ?
+						 (
 							<button
 								onClick={handelAddCart}
 								class="px-4 py-1 text-sm rounded-full border border-purple-200 bg-colorPrimary text-white  hover:bg-purple-400 hover:text-black "

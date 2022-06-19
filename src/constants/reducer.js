@@ -30,14 +30,12 @@ const reducer = (state, action) => {
 			// console.log({...state, data:action.data})
 			return { ...state, data: action.data }
 		case 'SET_CURRENT_USER':
-			
 			return {
 				...state,
 				userLogin: {
 					...state.userLogin,
 					isLogin: true,
 					info: action.data
-		
 				}
 			}
 

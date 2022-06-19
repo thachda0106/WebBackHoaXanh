@@ -33,7 +33,7 @@ export const updateUser = async (user) => {
 
 export const addUser = async ( user ) => {
 	try {
-		const res = await request.post('users/add', JSON.stringify(data))
+		const res = await request.post('users/add', JSON.stringify(user))
 		return res
 	} catch (error) {
 		console.log(error.response);

@@ -7,18 +7,19 @@ import Slider from '../../../components/Home/Slider';
 import Card from '../../../components/Home/ItemsList/Card'
 const ProductsOfType = () => {
 	const [ state, dispatch ] = useContext(Context);
-	const { type } = useParams();
+	const [ type, setType ] = useState(useParams().type);
 	const [ products, setProducts ] = useState(() => {
 		if (type === 'discount') return state.data.products.filter((product) => Functions.checkHot(product));
+		else if (state.data.categories.some(category=> category.categoryID === type )) return (state.data.products.filter((product) => product.categoryID === type))
 		else {
-			let products = state.data.products.filter((product) => product.name.includes(type));
-			if(products.length > 0) return products
-			else return (state.data.products.filter((product) => product.categoryID == type))
+			return state.data.products.filter((product) => product.name.toLocaleLowerCase().includes(type.trim().toLocaleLowerCase() ));
 		}
 	});
 	const handleChangeType = (categoryID) => {
-		setProducts(state.data.products.filter((product) => product.categoryID == type))
+		setType(categoryID)
+		setProducts(state.data.products.filter((product) => product.categoryID == categoryID));
 	}
+	console.log({products})
 	return (
 		<>
 			<Slider />

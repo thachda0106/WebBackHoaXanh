@@ -28,30 +28,41 @@ const Profile = () => {
 		var reader = new FileReader();
 		reader.readAsDataURL(file);
 		reader.onloadend = async () => {
-				setAvatar(reader.result);
-        setUser({...user, userImage: reader.result})
-			}
+			setAvatar(reader.result);
+			setUser({ ...user, userImage: reader.result });
 		};
+	};
 
 	const handleChange = (e) => {
 		setUser({ ...user, [e.id]: e.value });
 	};
 
-const handleSave = async () => {
-			const response = await toast.promise(updateUser(user), {
-				pending: 'Loading!'
-			});
-			console.log(response);
-			if (response.status >= 200 && response.status < 300) {
-				dispatch(Actions.updateUser(user));
-				Functions.showToast('success', 'Update avatar success!');
-			} else {
-				console.log(response);
-				Functions.showToast('error', 'Update failed, check your network!'); 
-			}
-  }
+	const handleSave = async () => {
+		if (!Functions.checkEmail(user.emailAddress)) {
+			Functions.showToast('warning', 'Email không hợp lệ!');
+			return;
+		}
+		if (!Functions.checkPhone(user.phoneNumber)) {
+			Functions.showToast('warning', 'Số điện thoại không hợp lệ!');
+			return;
+		}
+		if (!user.fullName.trim()) {
+			Functions.showToast('warning', 'Họ tên không hợp lệ!');
+			return;
+		}
+		let users = state.data.users
 
-  console.log({user});
+		const response = await toast.promise(updateUser(user), {
+			pending: 'Loading!'
+		});
+		if (response.status >= 200 && response.status < 300) {
+			dispatch(Actions.updateUser(user));
+			Functions.showToast('success', 'Update information success!');
+		} else {
+			console.log(response);
+			Functions.showToast('error', 'Update failed, check your network!');
+		}
+	};
 	return (
 		<div className="profile-background">
 			{isLoading && <Loading />}
@@ -62,7 +73,7 @@ const handleSave = async () => {
 						<div
 							className="btn-change-avt"
 							onClick={() => {
-								handleOpenFile(); 
+								handleOpenFile();
 							}}
 						>
 							<p>Chọn ảnh đại diện</p>
@@ -78,9 +89,9 @@ const handleSave = async () => {
 						</div>
 					</div>
 
-					<Link to="/my_voucher">
-						<button className="btn-voucher">Mã giảm giá</button>
-					</Link>
+					<button onClick={handleSave} className="btn-voucher change-info bg-colorPrimary">
+						Thay đổi
+					</button>
 				</div>
 				<div className="card-body">
 					<div className="wrapper w-full">
@@ -88,8 +99,8 @@ const handleSave = async () => {
 						<p className="profile-text">
 							Họ và tên:{' '}
 							<input
-                className = " border border-colorGrayBackground w-96 "
-								id="fullname"
+								className="border-colorGrayBackground w-96 "
+								id="fullName"
 								type="text"
 								value={user.fullName}
 								onChange={(e) => {
@@ -103,7 +114,7 @@ const handleSave = async () => {
 						<p className="profile-text">
 							Email:{' '}
 							<input
-                className = " border border-colorGrayBackground w-96 "
+								className="border-colorGrayBackground w-96 "
 								id="emailAddress"
 								type="email"
 								value={user.emailAddress}
@@ -118,7 +129,7 @@ const handleSave = async () => {
 						<p className="profile-text">
 							Số điện thoại:{' '}
 							<input
-                className = " border border-colorGrayBackground w-96 "
+								className="border-colorGrayBackground w-96 "
 								id="phoneNumber"
 								type="text"
 								value={user.phoneNumber}
@@ -134,8 +145,8 @@ const handleSave = async () => {
 						<p className="profile-text">
 							Địa chỉ giao hàng:{' '}
 							<textarea
-              rows="3"
-                className = " border border-colorGrayBackground w-full "
+								rows="3"
+								className="border-colorGrayBackground w-full "
 								id="shippingAddress"
 								value={user.shippingAddress}
 								onChange={(e) => {
@@ -145,11 +156,8 @@ const handleSave = async () => {
 						</p>
 					</div>
 				</div>
-				<div className="card-footer">
-					<button onClick={handleSave} className="change-info bg-colorPrimary">Lưu</button>
-				</div>
 			</div>
 		</div>
 	);
-}
+};
 export default Profile;
